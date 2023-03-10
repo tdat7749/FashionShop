@@ -1,0 +1,15 @@
+E:\FashionStore\FashionStore.ViewModel\bin\Debug\net6.0\FashionStore.ViewModel.deps.json
+E:\FashionStore\FashionStore.ViewModel\bin\Debug\net6.0\FashionStore.ViewModel.dll
+E:\FashionStore\FashionStore.ViewModel\bin\Debug\net6.0\FashionStore.ViewModel.pdb
+E:\FashionStore\FashionStore.ViewModel\obj\Debug\net6.0\FashionStore.ViewModel.csproj.AssemblyReference.cache
+E:\FashionStore\FashionStore.ViewModel\obj\Debug\net6.0\FashionStore.ViewModel.GeneratedMSBuildEditorConfig.editorconfig
+E:\FashionStore\FashionStore.ViewModel\obj\Debug\net6.0\FashionStore.ViewModel.AssemblyInfoInputs.cache
+E:\FashionStore\FashionStore.ViewModel\obj\Debug\net6.0\FashionStore.ViewModel.AssemblyInfo.cs
+E:\FashionStore\FashionStore.ViewModel\obj\Debug\net6.0\FashionStore.ViewModel.csproj.CoreCompileInputs.cache
+E:\FashionStore\FashionStore.ViewModel\obj\Debug\net6.0\FashionStore.ViewModel.dll
+E:\FashionStore\FashionStore.ViewModel\obj\Debug\net6.0\refint\FashionStore.ViewModel.dll
+E:\FashionStore\FashionStore.ViewModel\obj\Debug\net6.0\FashionStore.ViewModel.pdb
+E:\FashionStore\FashionStore.ViewModel\obj\Debug\net6.0\ref\FashionStore.ViewModel.dll
+E:\FashionStore\FashionStore.ViewModel\bin\Debug\net6.0\FashionStore.Data.dll
+E:\FashionStore\FashionStore.ViewModel\bin\Debug\net6.0\FashionStore.Data.pdb
+E:\FashionStore\FashionStore.ViewModel\obj\Debug\net6.0\FashionStore.ViewModel.csproj.CopyComplete

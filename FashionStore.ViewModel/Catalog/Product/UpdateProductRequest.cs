@@ -29,12 +29,14 @@ namespace FashionStore.ViewModel.Catalog.Product
         [Required(ErrorMessage = "Không được bỏ trống")]
         public int BrandId { get; set; }
 
-        public IFormFile Thumbnail { get; set; }
-
         [Required(ErrorMessage = "Không được bỏ trống")]
         public double Price { get; set; }
         [Required(ErrorMessage = "Không được bỏ trống")]
         public double PriceSale { get; set; }
+        [Required(ErrorMessage = "Không được bỏ trống")]
+        public List<int> productInOptions { get; set; }
+
+        public IFormFile Thumbnail { get; set; }
 
     }
 }

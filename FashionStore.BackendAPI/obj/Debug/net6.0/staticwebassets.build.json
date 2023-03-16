@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "g1v2Nh0FLagEvPulN24IwzlLVfQMDN/sat5YIGIuais=",
+  "Hash": "zpy048ZPK+zQQGF8mURkvjdZNtP4cDhwBg7XTlJOA0w=",
   "Source": "FashionStore.BackendAPI",
   "BasePath": "_content/FashionStore.BackendAPI",
   "Mode": "Default",
@@ -340,6 +340,23 @@
       "OriginalItemSpec": "wwwroot\\upload-image\\5-POMTK327-QSDTK319-1.jpg"
     },
     {
+      "Identity": "E:\\FashionStore\\FashionStore.BackendAPI\\wwwroot\\upload-image\\63d825ec-a83c-4b4a-9d98-d8b2ef3e9285.jpg",
+      "SourceId": "FashionStore.BackendAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\FashionStore\\FashionStore.BackendAPI\\wwwroot\\",
+      "BasePath": "_content/FashionStore.BackendAPI",
+      "RelativePath": "upload-image/63d825ec-a83c-4b4a-9d98-d8b2ef3e9285.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload-image\\63d825ec-a83c-4b4a-9d98-d8b2ef3e9285.jpg"
+    },
+    {
       "Identity": "E:\\FashionStore\\FashionStore.BackendAPI\\wwwroot\\upload-image\\6-POMTK324-QACTK203-1.jpg",
       "SourceId": "FashionStore.BackendAPI",
       "SourceType": "Discovered",
@@ -525,6 +542,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\upload-image\\e524f988-35c9-4c97-844a-b20162207153.jpg"
+    },
+    {
+      "Identity": "E:\\FashionStore\\FashionStore.BackendAPI\\wwwroot\\upload-image\\edf600fc-0ae0-4ffb-bd81-2f10e1539043.jpg",
+      "SourceId": "FashionStore.BackendAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\FashionStore\\FashionStore.BackendAPI\\wwwroot\\",
+      "BasePath": "_content/FashionStore.BackendAPI",
+      "RelativePath": "upload-image/edf600fc-0ae0-4ffb-bd81-2f10e1539043.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload-image\\edf600fc-0ae0-4ffb-bd81-2f10e1539043.jpg"
     },
     {
       "Identity": "E:\\FashionStore\\FashionStore.BackendAPI\\wwwroot\\upload-image\\ef44889f-4edf-4905-9039-5e6b3e319f97.jpg",

@@ -18,7 +18,7 @@ namespace FashionStore.BackendAPI.Controllers
         }
 
         [HttpGet("paging")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> GetProductPaging([FromQuery]PagingProductRequest request)
         {
             if (!ModelState.IsValid)
@@ -83,8 +83,7 @@ namespace FashionStore.BackendAPI.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Quản Trị Viên")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Quản Trị Viên")]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> CreateProduct([FromForm] CreateProductRequest request)
         {
@@ -98,8 +97,7 @@ namespace FashionStore.BackendAPI.Controllers
         }
 
         [HttpPost("images")]
-        // [Authorize(Roles = "Quản Trị Viên")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Quản Trị Viên")]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> CreateProductImage([FromForm] CreateProductImageRequest request)
         {
@@ -112,7 +110,7 @@ namespace FashionStore.BackendAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPut("stock")]
+        [HttpPatch("stock")]
         [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> UpdateStock([FromBody]UpdateProductStockRequest request)
         {
@@ -125,10 +123,10 @@ namespace FashionStore.BackendAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
+        [HttpPatch]
         [Authorize(Roles = "Quản Trị Viên")]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductRequest request)
+        public async Task<IActionResult> UpdateProduct([FromForm] UpdateProductRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -136,6 +134,20 @@ namespace FashionStore.BackendAPI.Controllers
             }
 
             var result = await _productService.UpdateProduct(request);
+            return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Quản Trị Viên")]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = await _productService.DeleteProduct(id);
             return Ok(result);
         }
     }

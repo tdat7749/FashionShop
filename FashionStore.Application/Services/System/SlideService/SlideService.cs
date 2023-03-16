@@ -59,6 +59,21 @@ namespace FashionStore.Application.Services.System.SlideService
             return new ApiSuccessResult<bool>(result);
         }
 
+        public async Task<ApiResult<SlideVm>> GetDetailSlide(int slideId)
+        {
+            var slide = await _context.Slides.FindAsync(slideId);
+            if (slide == null) return new ApiFailedResult<SlideVm>($"Không tồn tại slide với Id = {slideId}");
+
+            var slideVm = new SlideVm();
+            slideVm.Id = slide.Id;
+            slideVm.Url = slide.Url;
+            slideVm.SortOrder = slide.SortOrder;
+            slideVm.Status = slide.Status.ToString();
+            slideVm.Name = slide.NameImage;
+            var result = await _context.SaveChangesAsync() > 0;
+            return new ApiSuccessResult<SlideVm>(slideVm);
+        }
+
         public async Task<ApiResult<List<SlideVm>>> GetAllSlides()
         {
             var query = from s in _context.Slides
@@ -92,7 +107,7 @@ namespace FashionStore.Application.Services.System.SlideService
                 Status = x.Status.ToString(),
                 CreatedAt = x.CreatedAt.ToString(),
                 SortOrder = x.SortOrder
-            }).ToListAsync();
+            }).OrderBy(x => x.SortOrder).ToListAsync();
 
             return new ApiSuccessResult<List<SlideVm>>(slides);
 
@@ -105,6 +120,7 @@ namespace FashionStore.Application.Services.System.SlideService
 
             slide.SortOrder = request.SortOrder;
             slide.NameImage = request.Name;
+            slide.Status = request.Status;
 
             if(request.Url != null)
             {

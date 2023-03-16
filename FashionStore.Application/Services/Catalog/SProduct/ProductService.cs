@@ -2,6 +2,8 @@
 using FashionStore.Data.EF;
 using FashionStore.Data.Entities;
 using FashionStore.Data.Enums;
+using FashionStore.ViewModel.Catalog.Brand;
+using FashionStore.ViewModel.Catalog.Category;
 using FashionStore.ViewModel.Catalog.Option;
 using FashionStore.ViewModel.Catalog.Product;
 using FashionStore.ViewModel.Common;
@@ -287,8 +289,16 @@ namespace FashionStore.Application.Services.Catalog.SProduct
                 Slug = x.p.Slug,
                 Thumbnail = x.p.Thumbnail,
                 Description = x.p.Description,
-                Category = x.c.Name,
-                Brand = x.b.Name,
+                Category = new ProductCategoryVm()
+                {
+                    Id = x.c.Id,
+                    Name = x.c.Name
+                },
+                Brand = new ProductBrandVm()
+                {
+                    Id = x.b.Id,
+                    Name = x.b.Name
+                },
                 Status = x.p.Status.ToString(),
                 Price = x.p.Price,
                 PriceSale = x.p.PriceSale,
@@ -364,8 +374,16 @@ namespace FashionStore.Application.Services.Catalog.SProduct
                 Slug = x.p.Slug,
                 Thumbnail = x.p.Thumbnail,
                 Description = x.p.Description,
-                Category = x.c.Name,
-                Brand = x.b.Name,
+                Category = new ProductCategoryVm()
+                {
+                    Id = x.c.Id,
+                    Name = x.c.Name
+                },
+                Brand = new ProductBrandVm()
+                {
+                    Id = x.b.Id,
+                    Name = x.b.Name
+                },
                 Status = x.p.Status.ToString(),
                 Price = x.p.Price,
                 PriceSale = x.p.PriceSale,
@@ -448,6 +466,22 @@ namespace FashionStore.Application.Services.Catalog.SProduct
                 };
                 product.Thumbnail = pathFile;
             }
+
+            var listOptionProduct = await(from po in _context.ProductInOptions
+                                          where po.ProductId == request.ProductId
+                                          select po).ToListAsync();
+
+            _context.ProductInOptions.RemoveRange(listOptionProduct);
+
+            var listOptions = new List<ProductInOption>();
+            foreach(var item in request.productInOptions)
+            {
+                var option = new ProductInOption();
+                option.OptionId = item;
+                listOptions.Add(option);
+            }
+
+            product.ProductInOptions = listOptions;
 
             _context.Product.Update(product);
             var result = await _context.SaveChangesAsync() > 0;

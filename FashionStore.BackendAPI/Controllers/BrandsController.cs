@@ -8,7 +8,7 @@ namespace FashionStore.BackendAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class BrandsController : ControllerBase
     {
         private readonly IBrandService _brandService;
@@ -18,7 +18,7 @@ namespace FashionStore.BackendAPI.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> GetAllBrands()
         {
             var brands = await _brandService.GetAllBrands();
@@ -42,6 +42,7 @@ namespace FashionStore.BackendAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> GetDetailBrand(int id)
         {
             var brand = await _brandService.GetDetailBrand(id);
@@ -53,7 +54,7 @@ namespace FashionStore.BackendAPI.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Quản Trị Viên")]
+        [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> CreateBrand([FromBody]CreateBrandRequest request)
         {
             if (!ModelState.IsValid)
@@ -65,8 +66,8 @@ namespace FashionStore.BackendAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
-        //[Authorize(Roles = "Quản Trị Viên")]
+        [HttpPatch]
+        [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> UpdateBrand([FromBody]UpdateBrandRequest request)
         {
             if (!ModelState.IsValid)
@@ -78,8 +79,8 @@ namespace FashionStore.BackendAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPut("status")]
-        //[Authorize(Roles = "Quản Trị Viên")]
+        [HttpPatch("status")]
+        [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> UpdateStatusBrand([FromBody] UpdateStatusBrandRequest request)
         {
             if (!ModelState.IsValid)
@@ -92,7 +93,7 @@ namespace FashionStore.BackendAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Quản Trị Viên")]
+        [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> DeleteBrand(int id)
         {
             if (!ModelState.IsValid)

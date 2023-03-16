@@ -32,7 +32,7 @@ namespace FashionStore.BackendAPI.Controllers
 
 
         [HttpPut("status")]
-        [Authorize(Roles = "Quản Trị Viên")]
+        [Authorize(Roles = "Khách Hàng,Quản Trị Viên")]
         public async Task<IActionResult> ChangeStatusOrder([FromBody] ChangeStatusOrderRequest request)
         {
             if (!ModelState.IsValid)

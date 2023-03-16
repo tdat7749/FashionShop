@@ -46,8 +46,6 @@ namespace FashionStore.Application.Services.System
 
             var listClaim = new List<Claim>()
             {
-                new Claim(ClaimTypes.Name,user.UserName),
-                new Claim(ClaimTypes.Email,user.Email),
                 new Claim("UserId",user.Id)
             };
 

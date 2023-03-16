@@ -8,7 +8,7 @@ namespace FashionStore.BackendAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
@@ -18,7 +18,7 @@ namespace FashionStore.BackendAPI.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> GetAllCategories()
         {
             var categories = await _categoryService.GetAllCategories();
@@ -30,7 +30,7 @@ namespace FashionStore.BackendAPI.Controllers
         }
 
         [HttpGet("parent")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> GetParentCategories()
         {
             var categories = await _categoryService.GetParentCategories();
@@ -43,7 +43,7 @@ namespace FashionStore.BackendAPI.Controllers
 
 
         [HttpGet("parent/{id}")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> GetCategoriesByParentId(int id)
         {
             if (!ModelState.IsValid)
@@ -73,8 +73,9 @@ namespace FashionStore.BackendAPI.Controllers
             }
             return Ok(categories);
         }
-        [HttpGet("{id}")]        
-        
+
+        [HttpGet("{id}")]
+        [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> GetDetailCategory(int id)
         {
             if (!ModelState.IsValid)
@@ -90,7 +91,7 @@ namespace FashionStore.BackendAPI.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Quản Trị Viên")]
+        [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequest request)
         {
             if (!ModelState.IsValid)
@@ -102,8 +103,8 @@ namespace FashionStore.BackendAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
-        //[Authorize(Roles = "Quản Trị Viên")]
+        [HttpPatch]
+        [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> UpdateCategory([FromBody] UpdateCategoryRequest request)
         {
             if (!ModelState.IsValid)
@@ -115,8 +116,8 @@ namespace FashionStore.BackendAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPut("status")]
-        //[Authorize(Roles = "Quản Trị Viên")]
+        [HttpPatch("status")]
+        [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> UpdateStatusCategory([FromBody] UpdateStatusCategoryRequest request)
         {
             if (!ModelState.IsValid)
@@ -129,7 +130,7 @@ namespace FashionStore.BackendAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Quản Trị Viên")]
+        [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             if (!ModelState.IsValid)

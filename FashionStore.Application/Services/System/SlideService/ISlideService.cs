@@ -17,6 +17,8 @@ namespace FashionStore.Application.Services.System.SlideService
         Task<ApiResult<bool>> DeleteSlide(int slideId);
         Task<ApiResult<List<SlideVm>>> GetAllSlides();
 
+        Task<ApiResult<SlideVm>> GetDetailSlide(int slideId);
+
         //ADMIN
         Task<ApiResult<List<SlideVm>>> GetAllSlidesEnable();
     }

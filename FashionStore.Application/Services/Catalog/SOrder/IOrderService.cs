@@ -16,6 +16,7 @@ namespace FashionStore.Application.Services.Catalog.SOrder
 
 
         //CLIENT
+        Task<ApiResult<bool>> CancelOrder(int id);
         Task<PagingResultApiBase<List<OrderVm>>> GetListOrdersById(PagingOrderRequest request);
     }
 }

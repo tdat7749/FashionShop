@@ -23,6 +23,11 @@ namespace FashionStore.Application.Services.Catalog.SOrder
             _productService = productService;
         }
 
+        public Task<ApiResult<bool>> CancelOrder(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ApiResult<bool>> ChangeStatusOrder(ChangeStatusOrderRequest request)
         {
             var order = await _context.Orders.FindAsync(request.OrderId);
@@ -85,6 +90,7 @@ namespace FashionStore.Application.Services.Catalog.SOrder
             var query = from u in _context.Users
                         join o in _context.Orders on u.Id equals o.UserId
                         where u.Id == request.UserId
+                        orderby o.Id descending
                         select new { u, o };
 
             var listOrderDetails = from od in _context.OrderDetails
@@ -121,7 +127,7 @@ namespace FashionStore.Application.Services.Catalog.SOrder
                     Color = q.od.Color,
                     Size = q.od.Size
                 }).ToList()
-            }).ToListAsync();
+            }).OrderByDescending(x => x.Id).ToListAsync();
 
 
             int totalRecord = await query.CountAsync();

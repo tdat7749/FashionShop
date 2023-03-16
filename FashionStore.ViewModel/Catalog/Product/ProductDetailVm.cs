@@ -1,4 +1,6 @@
 ﻿using FashionStore.Data.Entities;
+using FashionStore.ViewModel.Catalog.Brand;
+using FashionStore.ViewModel.Catalog.Category;
 using FashionStore.ViewModel.Catalog.Option;
 using System;
 using System.Collections.Generic;
@@ -21,10 +23,10 @@ namespace FashionStore.ViewModel.Catalog.Product
         public double PriceSale { get; set; }
         public int Stock { get; set; }
 
-        public string Category { get; set; }
+        public ProductCategoryVm Category { get; set; }
         public string CreatedAt { get; set; }
         public string UpdatedAt { get; set; }
-        public string Brand { get; set; }
+        public ProductBrandVm Brand { get; set; }
 
         public List<ProductImageVm> ProductImages { get; set; }
         public List<OptionVm> Sizes { get; set; }

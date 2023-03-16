@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FashionStore.ViewModel.Catalog.Brand;
+using FashionStore.ViewModel.Catalog.Category;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FashionStore.Data.Enums;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,5 +19,8 @@ namespace FashionStore.ViewModel.System.Slide
         public IFormFile Url { get; set; }
         [Required(ErrorMessage = "Không được bỏ trống")]
         public int SortOrder { get; set; }
+
+        [Required(ErrorMessage = "Không được bỏ trống")]
+        public Status Status { get; set; }
     }
 }

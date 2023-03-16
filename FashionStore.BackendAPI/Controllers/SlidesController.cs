@@ -43,7 +43,20 @@ namespace FashionStore.BackendAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
+        [HttpGet("{id}")]
+        [Authorize(Roles = "Quản Trị Viên")]
+        public async Task<IActionResult> GetDetailSlide(int id)
+        {
+            var result = await _slideService.GetDetailSlide(id);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPatch]
         [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> UpdateSlide([FromForm]UpdateSlideRequest request)
         {

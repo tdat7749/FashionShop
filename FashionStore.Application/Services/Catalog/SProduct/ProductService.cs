@@ -562,5 +562,18 @@ namespace FashionStore.Application.Services.Catalog.SProduct
             await _fileStorageService.SaveFileAsync(file.OpenReadStream(), fileName);
             return fileName;
         }
+
+        public async Task<ApiResult<bool>> UpdateStatus(UpdateProductStatusRequest request)
+        {
+            var product = await _context.Product.FindAsync(request.ProductId);
+            if (product == null) return new ApiFailedResult<bool>($"Sản phẩm với Id = {request.ProductId} không tồn tại");
+
+
+            product.Status = request.Status;
+
+            _context.Product.Update(product);
+            var result = await _context.SaveChangesAsync() > 0;
+            return new ApiSuccessResult<bool>(result);
+        }
     }
 }

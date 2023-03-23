@@ -14,6 +14,7 @@ namespace FashionStore.Application.Services.System.UserService
         Task<ApiResult<bool>> UpdateUser(UpdateUserRequest request);
         Task<ApiResult<bool>> UpdateRolesUser(UpdateRolesUserRequest request);
         Task<PagingResultApiBase<List<UserVm>>> GetPagingUsers(PagingUserRequest request);
+        Task<ApiResult<bool>> ChangePassword(ChangePasswordRequest request);
 
         //Client đã đăng nhập 
         Task<ApiResult<UserVm>> GetDetailUser(string userId);

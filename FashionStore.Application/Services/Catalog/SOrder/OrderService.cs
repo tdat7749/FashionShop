@@ -1,15 +1,15 @@
-﻿using FashionStore.Application.Services.Catalog.SProduct;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using FashionStore.Application.Services.Catalog.SProduct;
 using FashionStore.Data.EF;
 using FashionStore.Data.Entities;
 using FashionStore.Data.Enums;
 using FashionStore.ViewModel.Catalog.Order;
 using FashionStore.ViewModel.Common;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FashionStore.Application.Services.Catalog.SOrder
 {
@@ -23,10 +23,6 @@ namespace FashionStore.Application.Services.Catalog.SOrder
             _productService = productService;
         }
 
-        public Task<ApiResult<bool>> CancelOrder(int id)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<ApiResult<bool>> ChangeStatusOrder(ChangeStatusOrderRequest request)
         {
@@ -85,12 +81,23 @@ namespace FashionStore.Application.Services.Catalog.SOrder
             return new ApiSuccessResult<int>(result);
         }
 
+        public async Task<ApiResult<bool>> DeleteOrder(int id)
+        {
+            var order = await _context.Orders.FindAsync(id);
+            if (order == null) return new ApiFailedResult<bool>($"Không tồn tại đơn hàng với Id = {id}");
+
+            _context.Orders.Remove(order);
+            var result = await _context.SaveChangesAsync() > 0;
+            return new ApiSuccessResult<bool>(result);
+
+        }
+
         public async Task<PagingResultApiBase<List<OrderVm>>> GetListOrdersById(PagingOrderRequest request)
         {
             var query = from u in _context.Users
                         join o in _context.Orders on u.Id equals o.UserId
                         where u.Id == request.UserId
-                        orderby o.Id descending
+                        orderby o.CreatedAt descending
                         select new { u, o };
 
             var listOrderDetails = from od in _context.OrderDetails
@@ -102,7 +109,7 @@ namespace FashionStore.Application.Services.Catalog.SOrder
 
             if (query.Count() > 0)
             {
-                query = query.Skip(((request.PageIndex - 1) * request.PageSize)).Take(request.PageSize).OrderBy(x => x.o.CreatedAt);
+                query = query.Skip(((request.PageIndex - 1) * request.PageSize)).Take(request.PageSize);
             }
 
             var listOrders = await query.Select(x => new OrderVm()
@@ -127,13 +134,67 @@ namespace FashionStore.Application.Services.Catalog.SOrder
                     Color = q.od.Color,
                     Size = q.od.Size
                 }).ToList()
-            }).OrderByDescending(x => x.Id).ToListAsync();
+            }).ToListAsync();
 
 
             int totalRecord = await query.CountAsync();
             double totalPage = Math.Ceiling((double)totalRecordAll / request.PageSize);
 
-            return new PagingSuccessResultApi<List<OrderVm>>(totalRecordAll,totalPage, totalRecord, request.PageSize, request.PageIndex, listOrders);
+            return new PagingSuccessResultApi<List<OrderVm>>(totalRecordAll, totalPage, totalRecord, request.PageSize, request.PageIndex, listOrders);
+        }
+
+        public async Task<PagingResultApiBase<List<OrderVm>>> GetPagingOrder(PagingOrderRequest request)
+        {
+            var query = from o in _context.Orders
+                        orderby o.CreatedAt descending
+                        select new {o};
+
+            var listOrderDetails = from od in _context.OrderDetails
+                                   join p in _context.Product on od.ProductId equals p.Id
+                                   select new { p, od };
+
+
+            if (request.Status != null)
+            {
+                query = query.Where(x => (int)x.o.Status == request.Status);
+            }
+
+            int totalRecordAll = await query.CountAsync();
+
+            if (query.Count() > 0)
+            {
+                query = query.Skip(((request.PageIndex - 1) * request.PageSize)).Take(request.PageSize).OrderByDescending(x => x.o.CreatedAt);
+            }
+
+            var listOrders = await query.Select(x => new OrderVm()
+            {
+                Id = x.o.Id,
+                Total = x.o.Total,
+                Address = x.o.Address,
+                PhoneNumber = x.o.PhoneNumber,
+                Status = x.o.Status.ToString(),
+                CreatedAt = x.o.CreatedAt.ToString(),
+                FullName = x.o.FullName,
+                Note = x.o.Note,
+                OrderDetails = listOrderDetails.Where(a => a.od.OrderId == x.o.Id).Select(q => new DetailOrderVm()
+                {
+                    OrderId = x.o.Id,
+                    ProductId = q.od.ProductId,
+                    ProductName = q.p.Name,
+                    Price = q.od.Price,
+                    Quantity = q.od.Quantity,
+                    SubTotal = q.od.SubTotal,
+                    Thumbnail = q.p.Thumbnail,
+                    Color = q.od.Color,
+                    Size = q.od.Size
+                }).ToList()
+            }).ToListAsync();
+
+
+            int totalRecord = await query.CountAsync();
+            double totalPage = Math.Ceiling((double)totalRecordAll / request.PageSize);
+
+            return new PagingSuccessResultApi<List<OrderVm>>(totalRecordAll, totalPage, totalRecord, request.PageSize, request.PageIndex, listOrders);
         }
     }
 }

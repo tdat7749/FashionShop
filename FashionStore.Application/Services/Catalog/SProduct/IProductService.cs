@@ -16,6 +16,7 @@ namespace FashionStore.Application.Services.Catalog.SProduct
         Task<ApiResult<bool>> UpdateStock(UpdateProductStockRequest request);
         Task<ApiResult<bool>> UpdatePrice(int productId, int newPrice);
         Task<ApiResult<bool>> UpdatePriceSale(int productId,int newPriceSale);
+        Task<ApiResult<bool>> UpdateStatus(UpdateProductStatusRequest request);
         Task<ApiResult<bool>> DeleteProduct(int productId);
         Task<ApiResult<bool>> DeleteProductImage(int imageId);
         Task<PagingResultApiBase<List<ProductVm>>> GetProductPaging(PagingProductRequest request);

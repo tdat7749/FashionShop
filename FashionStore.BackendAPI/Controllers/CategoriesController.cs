@@ -103,7 +103,7 @@ namespace FashionStore.BackendAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPatch]
+        [HttpPut]
         [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> UpdateCategory([FromBody] UpdateCategoryRequest request)
         {

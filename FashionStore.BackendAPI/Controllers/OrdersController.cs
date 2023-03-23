@@ -31,7 +31,7 @@ namespace FashionStore.BackendAPI.Controllers
         }
 
 
-        [HttpPut("status")]
+        [HttpPatch("status")]
         [Authorize(Roles = "Khách Hàng,Quản Trị Viên")]
         public async Task<IActionResult> ChangeStatusOrder([FromBody] ChangeStatusOrderRequest request)
         {
@@ -44,7 +44,7 @@ namespace FashionStore.BackendAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("paging")]
+        [HttpGet("public/paging")]
         [Authorize(Roles = "Khách Hàng,Quản Trị Viên")]
         public async Task<IActionResult> GetListOrderById([FromQuery]PagingOrderRequest request)
         {
@@ -54,6 +54,36 @@ namespace FashionStore.BackendAPI.Controllers
             }
 
             var result = await _orderService.GetListOrdersById(request);
+
+            return Ok(result);
+        }
+
+
+        [HttpGet("paging")]
+        [Authorize(Roles = "Quản Trị Viên")]
+        public async Task<IActionResult> GetPagingOrder([FromQuery] PagingOrderRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = await _orderService.GetPagingOrder(request);
+
+            return Ok(result);
+        }
+
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Quản Trị Viên")]
+        public async Task<IActionResult> DeleteOrder(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = await _orderService.DeleteOrder(id);
 
             return Ok(result);
         }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "zpy048ZPK+zQQGF8mURkvjdZNtP4cDhwBg7XTlJOA0w=",
+  "Hash": "aAmsmL9Ocxe2rUR6qL3pekVL8dvMAB+G86zc8vM4LrU=",
   "Source": "FashionStore.BackendAPI",
   "BasePath": "_content/FashionStore.BackendAPI",
   "Mode": "Default",
@@ -16,6 +16,23 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "E:\\FashionStore\\FashionStore.BackendAPI\\wwwroot\\upload-image\\01454d5f-68e0-470e-ac4e-2b7f18bb0ffc.jpg",
+      "SourceId": "FashionStore.BackendAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\FashionStore\\FashionStore.BackendAPI\\wwwroot\\",
+      "BasePath": "_content/FashionStore.BackendAPI",
+      "RelativePath": "upload-image/01454d5f-68e0-470e-ac4e-2b7f18bb0ffc.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload-image\\01454d5f-68e0-470e-ac4e-2b7f18bb0ffc.jpg"
+    },
     {
       "Identity": "E:\\FashionStore\\FashionStore.BackendAPI\\wwwroot\\upload-image\\02aceffa-d8cc-4a35-8041-7fb58df5e5f8.jpg",
       "SourceId": "FashionStore.BackendAPI",

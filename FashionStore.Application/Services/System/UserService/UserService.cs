@@ -25,6 +25,25 @@ namespace FashionStore.Application.Services.System.UserService
             _context = context;
         }
 
+        public async Task<ApiResult<bool>> ChangePassword(ChangePasswordRequest request)
+        {
+            var user = await _userManager.FindByIdAsync(request.UserId);
+            if (user == null) return new ApiFailedResult<bool>($"Không tồn người dùng nào có Id =  {request.UserId}");
+
+            if(request.NewPassword != request.ComfirmPassword)
+            {
+                return new ApiFailedResult<bool>("Mật khẩu mới và mật khẩu xác nhận không trùng khớp !");
+            }
+
+            var result = await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
+            if (!result.Succeeded)
+            {
+                return new ApiFailedResult<bool>("Mật khẩu cũ không chính xác !");
+            }
+
+            return new ApiSuccessResult<bool>(result.Succeeded);
+        }
+
         public async Task<ApiResult<UserVm>> GetDetailUser(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);

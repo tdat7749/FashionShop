@@ -12,7 +12,7 @@ namespace FashionStore.ViewModel.Common
         public ApiSuccessResult()
         {
             Success = true;
-            Message = "Thành công ";
+            Message = "Request Thành công";
         }
 
         public ApiSuccessResult(T data)

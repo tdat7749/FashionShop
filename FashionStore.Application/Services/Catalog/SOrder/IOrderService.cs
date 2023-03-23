@@ -12,11 +12,15 @@ namespace FashionStore.Application.Services.Catalog.SOrder
     {
         //ADMIN
         Task<ApiResult<int>> CreateOrder(CreateOrderRequest request);
-        Task<ApiResult<bool>> ChangeStatusOrder(ChangeStatusOrderRequest request);
+        Task<PagingResultApiBase<List<OrderVm>>> GetPagingOrder(PagingOrderRequest request);
+        Task<ApiResult<bool>> DeleteOrder(int id);
 
 
         //CLIENT
-        Task<ApiResult<bool>> CancelOrder(int id);
         Task<PagingResultApiBase<List<OrderVm>>> GetListOrdersById(PagingOrderRequest request);
+
+
+        //CLIEND and ADMIN
+        Task<ApiResult<bool>> ChangeStatusOrder(ChangeStatusOrderRequest request);
     }
 }

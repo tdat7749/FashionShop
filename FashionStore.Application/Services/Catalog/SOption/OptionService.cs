@@ -84,5 +84,16 @@ namespace FashionStore.Application.Services.Catalog.SOption
             var result = await _context.SaveChangesAsync() > 0;
             return new ApiSuccessResult<bool>(result);
         }
+
+        public async Task<ApiResult<bool>> DeleteOption(int id)
+        {
+            var option = await _context.Options.FindAsync(id);
+            if (option == null) return new ApiFailedResult<bool>($"Không tồn tại option với Id = {id}");
+
+
+            _context.Options.Remove(option);
+            var result = await _context.SaveChangesAsync() > 0;
+            return new ApiSuccessResult<bool>(result);
+        }
     }
 }

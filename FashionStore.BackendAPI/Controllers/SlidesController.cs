@@ -56,7 +56,7 @@ namespace FashionStore.BackendAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPatch]
+        [HttpPut]
         [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> UpdateSlide([FromForm]UpdateSlideRequest request)
         {
@@ -68,7 +68,7 @@ namespace FashionStore.BackendAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPut("status")]
+        [HttpPatch("status")]
         [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> UpdateStatusSlide([FromBody]UpdateStatusSlideRequest request)
         {

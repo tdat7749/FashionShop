@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FashionStore.Data.Enums
 {
-    public enum OrderStatus
+   public enum OrderStatus
     {
         Processing,
         Processed,

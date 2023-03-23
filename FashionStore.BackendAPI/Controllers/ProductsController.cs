@@ -123,7 +123,7 @@ namespace FashionStore.BackendAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPatch]
+        [HttpPut]
         [Authorize(Roles = "Quản Trị Viên")]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> UpdateProduct([FromForm] UpdateProductRequest request)
@@ -137,9 +137,22 @@ namespace FashionStore.BackendAPI.Controllers
             return Ok(result);
         }
 
+
+        [HttpPatch("status")]
+        [Authorize(Roles = "Quản Trị Viên")]
+        public async Task<IActionResult> UpdateStatus(UpdateProductStatusRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = await _productService.UpdateStatus(request);
+            return Ok(result);
+        }
+
         [HttpDelete("{id}")]
         [Authorize(Roles = "Quản Trị Viên")]
-        [Consumes("multipart/form-data")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             if (!ModelState.IsValid)
@@ -148,6 +161,20 @@ namespace FashionStore.BackendAPI.Controllers
             }
 
             var result = await _productService.DeleteProduct(id);
+            return Ok(result);
+        }
+
+
+        [HttpDelete("image/{id}")]
+        [Authorize(Roles = "Quản Trị Viên")]
+        public async Task<IActionResult> DeleteProductImage(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = await _productService.DeleteProductImage(id);
             return Ok(result);
         }
     }

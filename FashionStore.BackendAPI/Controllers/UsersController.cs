@@ -69,5 +69,20 @@ namespace FashionStore.BackendAPI.Controllers
             return Ok(result);
         }
 
+
+        [HttpPatch("password")]
+        //[Authorize(Roles = "Khách Hàng,Quản Trị Viên")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ChangePassword(ChangePasswordRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = await _userService.ChangePassword(request);
+            return Ok(result);
+        }
+
     }
 }

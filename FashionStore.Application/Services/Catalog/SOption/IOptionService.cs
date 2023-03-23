@@ -15,5 +15,7 @@ namespace FashionStore.Application.Services.Catalog.SOption
         Task<ApiResult<List<OptionVm>>> GetSizeOption();
         Task<ApiResult<bool>> CreateOption(CreateOptionRequest request);
         Task<ApiResult<bool>> UpdateOption(UpdateOptionRequest request);
+
+        Task<ApiResult<bool>> DeleteOption(int id);
     }
 }

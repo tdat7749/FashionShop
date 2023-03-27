@@ -21,9 +21,11 @@ namespace FashionStore.ViewModel.System.User
         [StringLength(255, ErrorMessage = "Không được vượt quá 255 kí tự")]
         public string FirstName { get; set; }
         [Required(ErrorMessage = "Không được bỏ trống")]
-        [StringLength(6, ErrorMessage = "Không được vượt quá 255 kí tự")]
+        [StringLength(255, ErrorMessage = "Không được vượt quá 255 kí tự")]
         public string LastName { get; set; }
         [Required(ErrorMessage = "Không được bỏ trống")]
+        [StringLength(11, ErrorMessage = "Không được vượt quá 11 kí tự")]
+
         public string PhoneNumber { get; set; }
 
     }

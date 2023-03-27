@@ -65,6 +65,19 @@ namespace FashionStore.Application.Services.System.UserService
             return new ApiSuccessResult<UserVm>(result);
         }
 
+        public async Task<ApiResult<List<RoleVm>>> GetAllRoles()
+        {
+            var listRolesRaw = _roleManager.Roles;
+
+            var listRoles = await listRolesRaw.Select(x => new RoleVm()
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToListAsync();
+
+            return new ApiSuccessResult<List<RoleVm>>(listRoles);
+        }
+
         public async Task<PagingResultApiBase<List<UserVm>>> GetPagingUsers(PagingUserRequest request)
         {
             var query = from u in _context.Users
@@ -102,8 +115,8 @@ namespace FashionStore.Application.Services.System.UserService
 
         public async Task<ApiResult<bool>> UpdateRolesUser(UpdateRolesUserRequest request)
         {
-            var user = await _userManager.FindByIdAsync(request.UserId);
-            if (user == null) return new ApiFailedResult<bool>($"Không tồn người dùng nào có Id = {request.UserId}");
+            var user = await _userManager.FindByNameAsync(request.userName);
+            if (user == null) return new ApiFailedResult<bool>($"Không tồn người dùng nào có tài khoản = {request.userName}");
 
             var currentRoles = await _userManager.GetRolesAsync(user);
 
@@ -154,6 +167,28 @@ namespace FashionStore.Application.Services.System.UserService
             _context.Users.Update(user);
             var result = await _context.SaveChangesAsync() > 0;
             return new ApiSuccessResult<bool>(result);
+        }
+
+        public async Task<ApiResult<IList<string>>> GetRoleUser(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null) return new ApiFailedResult<IList<string>>($"Không tồn tại người dùng có tài khoản là : ${userName}");
+
+            var listCurrentRoles = await _userManager.GetRolesAsync(user);
+
+            return new ApiSuccessResult<IList<string>>(listCurrentRoles);
+
+        }
+
+        public async Task<ApiResult<bool>> DeleteUser(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null) return new ApiFailedResult<bool>($"Không tồn tại người dùng có tài khoản là : ${userName}");
+
+            _context.Users.Remove(user);
+            var result = await _context.SaveChangesAsync() > 0;
+            return new ApiSuccessResult<bool>(result);
+
         }
     }
 }

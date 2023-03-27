@@ -30,6 +30,19 @@ namespace FashionStore.BackendAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet("images/{id}")]
+        [Authorize(Roles = "Quản Trị Viên")]
+        public async Task<IActionResult> GetProductImage(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = await _productService.GetProductImage(id);
+            return Ok(result);
+        }
+
         [HttpGet("public/paging")]
         [AllowAnonymous]
         public async Task<IActionResult> GetPublicProductPaging([FromQuery] PagingProductRequest request)
@@ -123,19 +136,6 @@ namespace FashionStore.BackendAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
-        [Authorize(Roles = "Quản Trị Viên")]
-        [Consumes("multipart/form-data")]
-        public async Task<IActionResult> UpdateProduct([FromForm] UpdateProductRequest request)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            var result = await _productService.UpdateProduct(request);
-            return Ok(result);
-        }
 
 
         [HttpPatch("status")]
@@ -148,6 +148,20 @@ namespace FashionStore.BackendAPI.Controllers
             }
 
             var result = await _productService.UpdateStatus(request);
+            return Ok(result);
+        }
+
+        [HttpPut]
+        [Authorize(Roles = "Quản Trị Viên")]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> UpdateProduct([FromForm] UpdateProductRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = await _productService.UpdateProduct(request);
             return Ok(result);
         }
 

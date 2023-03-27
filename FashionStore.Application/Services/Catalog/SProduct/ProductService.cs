@@ -601,5 +601,21 @@ namespace FashionStore.Application.Services.Catalog.SProduct
             var result = await _context.SaveChangesAsync() > 0;
             return new ApiSuccessResult<bool>(result);
         }
+
+        public async Task<ApiResult<List<ProductImageVm>>> GetProductImage(int productId)
+        {
+            var query = from pi in _context.ProductImages
+                        where pi.ProductId == productId
+                        select pi;
+
+            var listImages = await query.Select(x => new ProductImageVm()
+            {
+                Id = x.Id,
+                NameImage = x.NameImage,
+                Url = x.Url
+            }).ToListAsync();
+
+            return new ApiSuccessResult<List<ProductImageVm>>(listImages);
+        }
     }
 }

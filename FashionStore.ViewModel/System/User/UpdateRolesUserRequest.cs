@@ -9,7 +9,7 @@ namespace FashionStore.ViewModel.System.User
 {
     public class UpdateRolesUserRequest
     {
-        public string UserId { get; set; }
+        public string userName { get; set; }
         public List<string> ListRoles { get; set; }
     }
 }

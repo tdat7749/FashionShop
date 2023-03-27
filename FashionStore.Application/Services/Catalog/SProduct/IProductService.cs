@@ -20,6 +20,7 @@ namespace FashionStore.Application.Services.Catalog.SProduct
         Task<ApiResult<bool>> DeleteProduct(int productId);
         Task<ApiResult<bool>> DeleteProductImage(int imageId);
         Task<PagingResultApiBase<List<ProductVm>>> GetProductPaging(PagingProductRequest request);
+        Task<ApiResult<List<ProductImageVm>>> GetProductImage(int productId);
         Task<ApiResult<bool>> UpdateProduct(UpdateProductRequest request);
 
         Task<ApiResult<bool>> CreateProduct(CreateProductRequest request);

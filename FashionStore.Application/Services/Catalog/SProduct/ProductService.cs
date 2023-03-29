@@ -105,6 +105,7 @@ namespace FashionStore.Application.Services.Catalog.SProduct
             if (productImage == null) return new ApiFailedResult<bool>($"Hình ảnh với Id = {imageId} không tồn tại");
 
             _context.ProductImages.Remove(productImage);
+            await _fileStorageService.DeleteFileAsync(productImage.Url);
             var result = await _context.SaveChangesAsync() > 0;
             return new ApiSuccessResult<bool>(result);
         }
@@ -113,6 +114,13 @@ namespace FashionStore.Application.Services.Catalog.SProduct
         {
             var product = await _context.Product.FindAsync(productId);
             if (product == null) return new ApiFailedResult<bool>($"Sản phẩm với Id = {productId} không tồn tại");
+
+            var listImageFileRoot =  _context.ProductImages.Where(x => x.ProductId == product.Id); 
+
+            foreach(var item in listImageFileRoot)
+            {
+                await _fileStorageService.DeleteFileAsync(item.Url);
+            }
 
             _context.Product.Remove(product);
             var result =  await _context.SaveChangesAsync() > 0;
@@ -557,6 +565,7 @@ namespace FashionStore.Application.Services.Catalog.SProduct
                          join c in _context.Categories on p.CategoryId equals c.Id
                          join b in _context.Brands on p.BrandId equals b.Id
                          orderby p.CreatedAt descending
+                         where p.Status == Status.Enable && c.Status == Status.Enable && b.Status == Status.Enable
                          select new { p, c, b }).Take(12);
 
 

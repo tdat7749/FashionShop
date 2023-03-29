@@ -175,5 +175,22 @@ namespace FashionStore.Application.Services.Catalog.SCategory
 
             return new ApiSuccessResult<List<CategoryVm>>(listCategory);
         }
+
+        public async Task<ApiResult<List<CategoryVm>>> GetPublicCategories()
+        {
+            var listCategory = await _context.Categories
+                .Where(x => x.Status == Status.Enable)
+                .Select(x => new CategoryVm()
+                {
+                    CategoryName = x.Name,
+                    Id = x.Id,
+                    ParentId = x.ParentId,
+                    CreatedAt = x.CreatedAt.ToString(),
+                    UpdatedAt = x.UpdatedAt.ToString(),
+                    Status = x.Status.ToString(),
+                }).ToListAsync();
+
+            return new ApiSuccessResult<List<CategoryVm>>(listCategory);
+        }
     }
 }

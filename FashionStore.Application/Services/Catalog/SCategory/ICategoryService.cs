@@ -18,6 +18,8 @@ namespace FashionStore.Application.Services.Catalog.SCategory
         Task<ApiResult<bool>> DeleteCategory(int categoryId);
         Task<ApiResult<bool>> UpdateStatusCategory(UpdateStatusCategoryRequest request);
 
+        Task<ApiResult<List<CategoryVm>>> GetPublicCategories();
+
         Task<ApiResult<List<CategoryVm>>> GetCategoriesLow();
         Task<ApiResult<List<CategoryVm>>> GetAllCategories();
         Task<ApiResult<List<CategoryVm>>> GetParentCategories();

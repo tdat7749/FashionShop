@@ -156,8 +156,14 @@ namespace FashionStore.Application.Services.System.UserService
             var user = await _userManager.FindByIdAsync(request.UserId);
             if (user == null) return new ApiFailedResult<bool>($"Không tồn người dùng nào có Id = {request.UserId}");
 
-            var checkEmail = await _userManager.FindByEmailAsync(request.Email);
-            if (checkEmail != null) return new ApiFailedResult<bool>($"Địa chỉ Email này đã tồn tại");
+            var emailUser = await _userManager.GetEmailAsync(user);
+
+            if(emailUser.ToLower() != request.Email.ToLower().Trim())
+            {
+                var checkEmail = await _userManager.FindByEmailAsync(request.Email.ToLower().Trim());
+                if (checkEmail != null) return new ApiFailedResult<bool>($"Địa chỉ Email này đã tồn tại");
+            }
+
 
             user.PhoneNumber = request.PhoneNumber;
             user.Email = request.Email;

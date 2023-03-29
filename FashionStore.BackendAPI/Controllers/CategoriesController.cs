@@ -29,6 +29,18 @@ namespace FashionStore.BackendAPI.Controllers
             return Ok(categories);
         }
 
+        [HttpGet("public")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetPublicCategoires()
+        {
+            var categories = await _categoryService.GetPublicCategories();
+            if (categories == null)
+            {
+                return BadRequest();
+            }
+            return Ok(categories);
+        }
+
         [HttpGet("parent")]
         [Authorize(Roles = "Quản Trị Viên")]
         public async Task<IActionResult> GetParentCategories()

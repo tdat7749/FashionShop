@@ -17,3 +17,9 @@
 - user : login jwt, register, change user information, change password, paging, status
 - carousel: status
 - comment : comment has no level
+
+
+
+<h1>NOTE</h1>
+- Before running the project, you need to modify the connection path to your computer's database in the file appsettings.json in the BackendAPI and Data folders
+- Connection string :"Server=yourServerName;Database=FashionStoreDb;Trusted_Connection=True"

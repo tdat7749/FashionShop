@@ -42,5 +42,18 @@ namespace FashionStore.BackendAPI.Controllers
             var result = await _authenticateService.Authenticate(request);
             return Ok(result);
         }
+
+        [HttpGet("verify/{id}")]
+        [Authorize(Roles = "Quản Trị Viên,Khách Hàng")]
+        public async Task<IActionResult> VerifyClient(string id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = await _authenticateService.VerifyClient(id);
+            return Ok(result);
+        }
     }
 }

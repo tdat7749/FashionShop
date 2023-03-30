@@ -14,5 +14,7 @@ namespace FashionStore.Application.Services.System
 
         Task<ApiResult<bool>> Register(RegisterRequest request);
         Task<ApiResult<bool>> RegisterAdmin(RegisterRequest request);
+
+        Task<ApiResult<UserVm>> VerifyClient(string userId);
     }
 }

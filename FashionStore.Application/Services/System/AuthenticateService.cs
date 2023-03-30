@@ -125,5 +125,26 @@ namespace FashionStore.Application.Services.System
 
             return new ApiFailedResult<bool>("Tạo tài khoản thất bại");
         }
+
+        public async Task<ApiResult<UserVm>> VerifyClient(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null) return new ApiFailedResult<UserVm>($"Không tồn người dùng nào có Id =  {userId}");
+
+            var listRoles = await _userManager.GetRolesAsync(user);
+
+            var result = new UserVm()
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                ListRoles = listRoles.ToList()
+            };
+
+            return new ApiSuccessResult<UserVm>(result);
+        }
     }
 }

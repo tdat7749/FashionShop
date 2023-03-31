@@ -21,7 +21,6 @@ namespace FashionStore.ViewModel.Catalog.Order
         public string PhoneNumber { get; set; }
         [Required(ErrorMessage = "Không được bỏ trống")]
         public string FullName { get; set; }
-        [Required(ErrorMessage = "Không được bỏ trống")]
         public string Note { get; set; }
         [Required(ErrorMessage = "Không được bỏ trống")]
         public List<CreateDetailOrderRequest> Details { get; set; }
